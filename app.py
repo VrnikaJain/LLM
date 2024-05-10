@@ -9,7 +9,7 @@ model = AutoModel.from_pretrained("TheBloke/Llama-2-7B-Chat-GGML")
 def getLLamaresponse(input_text,no_words,blog_style):
 
     ### LLama2 model
-    llm=CTransformers(model="model",
+    llm=CTransformers(model=model,
                       model_type='llama',
                       config={'max_new_tokens':256,
                               'temperature':0.01})
