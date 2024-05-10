@@ -1,12 +1,15 @@
-from transformers import AutoTokenizer, AutoModelForCausalLM
 import streamlit as st
 from langchain.prompts import PromptTemplate
 from langchain.llms import CTransformers
 
+# Load model directly
+from transformers import AutoModel
+model = AutoModel.from_pretrained("TheBloke/Llama-2-7B-Chat-GGML")
+
 def getLLamaresponse(input_text,no_words,blog_style):
 
     ### LLama2 model
-    llm=CTransformers(model="models/llama-2-7b-chat.ggmlv3.q8_0.bin",
+    llm=CTransformers(model="model",
                       model_type='llama',
                       config={'max_new_tokens':256,
                               'temperature':0.01})
@@ -21,7 +24,7 @@ def getLLamaresponse(input_text,no_words,blog_style):
                           template=template)
     
     ## Generate the ressponse from the LLama 2 model
-    response=llm(prompt.format(style=blog_style,text=input_text,words=no_words))
+    response=llm(prompt.format(blog_style=blog_style,input_text=input_text,no_words=no_words))
     print(response)
     return response
 
